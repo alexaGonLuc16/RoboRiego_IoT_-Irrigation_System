@@ -27,7 +27,7 @@ client.connect("192.168.0.11", 1883, 60)
 client.loop_start()
 
 # Cargar la imagen
-imagen = cv2.imread('foto_rosa.jpg')
+imagen = cv2.imread('capture_flower.jpg')
 
 # Convertir la imagen a espacio de color HSV
 hsv = cv2.cvtColor(imagen, cv2.COLOR_BGR2HSV)
