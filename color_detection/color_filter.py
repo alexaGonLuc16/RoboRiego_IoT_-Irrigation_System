@@ -21,7 +21,7 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 # Conexión al broker MQTT (puedes cambiar el host y puerto si es necesario)
-client.connect("192.168.0.11", 1883, 60)
+client.connect("192.168.1.16", 1883, 60)
 
 # Inicio de un hilo para manejar la red y las callbacks
 client.loop_start()
