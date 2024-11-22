@@ -3,6 +3,7 @@ import urllib.request
 import numpy as np
 import os
 import paho.mqtt.client as mqtt
+import color_filter as cf
 
 # Función que se ejecuta cuando te conectas al broker MQTT
 def on_connect(client, userdata, flags, reasonCode, properties=None):
@@ -36,6 +37,10 @@ def on_message(client, userdata, msg):
                 print("No se pudo decodificar la imagen.")
         except Exception as e:
             print(f"Error al tomar la foto: {e}")
+    mensaje = cf.image_recognition()    
+    tema = "florDeteccion"
+    client.publish(tema, mensaje)
+        
 
 # Configuración del cliente MQTT
 client = mqtt.Client()
