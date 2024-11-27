@@ -31,10 +31,10 @@ conteo_rojo = cv2.countNonZero(mascara_rojo_intenso)
 conteo_amarillo = cv2.countNonZero(mascara_amarillo)
 
 # Determinar la flor detectada y enviar los datos a Node-RED mediante MQTT
-if conteo_amarillo > 500:
+if conteo_amarillo > conteo_rojo:
     mensaje = "Girasol"
     print("Girasol detectado")
-elif conteo_rojo > 500:
+elif conteo_rojo > conteo_amarillo:
     mensaje = "Rosa"
     print("Rosa detectada")    
 else:

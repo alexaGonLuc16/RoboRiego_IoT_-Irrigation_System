@@ -29,7 +29,7 @@ client.loop_start()
 def image_recognition():
 
     # Cargar la imagen
-    imagen = cv2.imread('capture_flower.jpg')
+    imagen = cv2.imread('images/capture_flower.jpg')
 
     # Convertir la imagen a espacio de color HSV
     hsv = cv2.cvtColor(imagen, cv2.COLOR_BGR2HSV)
@@ -59,12 +59,13 @@ def image_recognition():
     conteo_amarillo = cv2.countNonZero(mascara_amarillo)
 
     # Determinar la flor detectada y enviar los datos a Node-RED mediante MQTT
-    if conteo_amarillo > 500:
-        mensaje = "Girasol"
-        print("Girasol detectado")
-    elif conteo_rojo > 500:
+    
+    if conteo_rojo > 500:
         mensaje = "Rosa"
         print("Rosa detectada")    
+    elif conteo_amarillo > 500:
+        mensaje = "Girasol"
+        print("Girasol detectado")
     else:
         mensaje = "No detectada"
         print("No se detectaron flores específicas")
