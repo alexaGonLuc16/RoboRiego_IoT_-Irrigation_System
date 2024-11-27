@@ -60,12 +60,13 @@ def image_recognition():
 
     # Determinar la flor detectada y enviar los datos a Node-RED mediante MQTT
     
-    if conteo_rojo > 500:
-        mensaje = "Rosa"
-        print("Rosa detectada")    
-    elif conteo_amarillo > 500:
+    # Determinar la flor detectada y enviar los datos a Node-RED mediante MQTT
+    if conteo_amarillo > conteo_rojo:
         mensaje = "Girasol"
         print("Girasol detectado")
+    elif conteo_rojo > conteo_amarillo:
+        mensaje = "Rosa"
+        print("Rosa detectada")    
     else:
         mensaje = "No detectada"
         print("No se detectaron flores específicas")

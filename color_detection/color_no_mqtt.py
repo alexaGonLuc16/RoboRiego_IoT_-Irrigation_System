@@ -11,7 +11,7 @@ hsv = cv2.cvtColor(imagen, cv2.COLOR_BGR2HSV)
 rojo_intenso_bajo1 = np.array([0, 150, 150])  # Hue bajo, saturación y valor altos
 rojo_intenso_alto1 = np.array([5, 255, 255])  # Hasta 5 para evitar naranja
 
-# Segundo rango de rojo (Hue cerca de 180)
+# Segundo rango de rojo (Hue cerca de s180)
 rojo_intenso_bajo2 = np.array([175, 150, 150])  # Valores altos para evitar tonos apagados
 rojo_intenso_alto2 = np.array([180, 255, 255])
 
