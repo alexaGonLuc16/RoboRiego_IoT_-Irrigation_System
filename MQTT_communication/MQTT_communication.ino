@@ -2,11 +2,11 @@
 #include <PubSubClient.h>
 
 // Configuración de la red Wi-Fi
-const char* ssid = "steren_2_4G";
-const char* password = "password";
+const char* ssid = "IZZI-E002-2.4G";
+const char* password = "189C275CE002";
 
 // Configuración del broker MQTT
-const char* mqttServer = "192.168.1.12";
+const char* mqttServer = "192.168.0.11";
 const int mqttPort = 1883;
 
 // Pines del LED
@@ -43,8 +43,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
     // Control de riego (recepción de tipo de flor)
     if (message == "Rosa") {
         Serial.println(message, " detectado(a)");
+        //mqttClient.publish("controlBombaAgua", "ON"); 
+        //mqttClient.publish("controlBombaAgua", "OFF");
     } else if (message == "Girasol") {
         Serial.println(message, " detectado");
+        //mqttClient.publish("controlBombaAgua", "OFF");
     }
 }
 
@@ -54,9 +57,9 @@ void reconnect() {
         Serial.print("Intentando conectar al broker MQTT...");
         if (mqttClient.connect("broker_Alexa")) {
             Serial.println("Conectado a broker_Alexa");
-            mqttClient.subscribe("laptopMensaje");//motores
-            mqttClient.subscribe("flor/deteccion");
-            mqttClient.subscribe("laptopRonnie");//creo que esta linea no es  necesaria(topico de sensor)
+            mqttClient.subscribe("moverRobot");//motores
+            mqttClient.subscribe("florDeteccion");
+            //suscribir a moverRobot
         } else {
             Serial.print("Fallido, rc=");
             Serial.print(mqttClient.state());
@@ -100,15 +103,17 @@ void loop() {
     String str = String(sensorValue);
       
     // Control del LED del pin 14 basado en la humedad
-    if (sensorValue > 70) {
+    if (sensorValue > 130) {
         digitalWrite(ledPin, LOW);
         Serial.println("Humedad suficiente");
-    } else if (sensorValue < 70) {
+        mqttClient.publish("controlBombaAgua", "ON"); 
+    } else if (sensorValue < 130) {
         digitalWrite(ledPin, HIGH);
         Serial.println("Humedad insuficiente");
+        mqttClient.publish("controlBombaAgua", "OFF"); 
     }
     
-    mqttClient.publish("datos_humedad", str.c_str()); 
+    mqttClient.publish("datosHumedad", str.c_str()); 
     Serial.println(analogRead(sensorPin));
     delay(3000);  
 }
